@@ -1,22 +1,12 @@
-import { Space, Table, Tag, Layout, theme, Button, Divider } from 'antd';
-import type { ColumnsType } from 'antd/es/table';
-const {Content} = Layout
-import {AppstoreAddOutlined} from '@ant-design/icons';
+import {DataConstructor} from "../../../widgets/data-constructor";
+import {Space, Tag} from "antd";
 
-interface DataType {
-    key: string;
-    name: string;
-    age: number;
-    address: string;
-    tags: string[];
-}
-
-const columns: ColumnsType<DataType> = [
+const columns =  [
     {
         title: 'Name',
         dataIndex: 'name',
         key: 'name',
-        render: (text) => <a>{text}</a>,
+        render: (text: string) => <a>{text}</a>,
     },
     {
         title: 'Age',
@@ -32,9 +22,9 @@ const columns: ColumnsType<DataType> = [
         title: 'Tags',
         key: 'tags',
         dataIndex: 'tags',
-        render: (_, { tags }) => (
+        render: (_: unknown, record: DataType) => (
             <>
-                {tags.map((tag) => {
+                {record.tags.map((tag) => {
                     let color = tag.length > 5 ? 'geekblue' : 'green';
                     if (tag === 'loser') {
                         color = 'volcano';
@@ -51,7 +41,7 @@ const columns: ColumnsType<DataType> = [
     {
         title: 'Action',
         key: 'action',
-        render: (_, record) => (
+        render: (_: unknown, record: DataType) => (
             <Space size="middle">
                 <a>Invite {record.name}</a>
                 <a>Delete</a>
@@ -60,7 +50,7 @@ const columns: ColumnsType<DataType> = [
     },
 ];
 
-const data: DataType[] = [
+const data = [
     {
         key: '1',
         name: 'John Brown',
@@ -83,26 +73,16 @@ const data: DataType[] = [
         tags: ['cool', 'teacher'],
     },
 ];
+interface DataType {
+    key: string;
+    name: string;
+    age: number;
+    address: string;
+    tags: string[];
+}
 
-export const DataConstructor = () => {
-    const {
-        token: { colorBgContainer },
-    } = theme.useToken();
+export const Components = () => {
     return(
-    <Content
-        style={{
-            margin: '24px 16px',
-            padding: 24,
-            minHeight: 280,
-            background: colorBgContainer,
-        }}
-    >
-        <Space>
-            <Button type="primary" icon={<AppstoreAddOutlined />}>
-                Add
-            </Button>
-        </Space>
-        <Divider />
-        <Table columns={columns} dataSource={data} />
-    </Content>)
+        <DataConstructor<DataType> columns={columns} data={data}/>
+    )
 }

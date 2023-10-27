@@ -4,7 +4,6 @@ import {
     MenuUnfoldOutlined,
 } from '@ant-design/icons';
 import { Layout, Menu, Button, theme, Flex } from 'antd';
-import { NavLink } from 'react-router-dom';
 import { routes } from '../../../shared/const/routes';
 import { Typography } from 'antd';
 import {FireTwoTone} from '@ant-design/icons';
@@ -28,17 +27,7 @@ export const BaseLayout = (props: BaseLayoutProps) => {
                     <FireTwoTone />
                     {!collapsed && <Text strong={true}>Ant Design</Text>}
                 </Flex>
-                <Menu
-                    mode="inline"
-                    items={routes.map(route => (
-                        {
-                            key: route.path,
-                            label: route.label,
-                            icon:  <NavLink key={route.path} to={route.path}>{route.icon}</NavLink>,
-                            children: route?.children
-                        }
-                    ))}  // TODO: CODE SPLITTING
-                />
+                <Menu mode="inline" items={routes}/>
             </Sider>
             <Layout  style={{minHeight: '100vh'}} >
                 <Header style={{ padding: 0, background: colorBgContainer }}>

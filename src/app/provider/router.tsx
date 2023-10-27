@@ -1,6 +1,6 @@
-import { DataConstructor } from "../../pages/data-constructor";
 import { BaseLayout } from "../ui/layouts/base";
 import {Outlet, createBrowserRouter } from 'react-router-dom';
+import {routes} from "../../shared/const/routes.tsx";
 
 export const Router = () =>
     createBrowserRouter(
@@ -10,24 +10,7 @@ export const Router = () =>
                 element: (
                     <BaseLayout><Outlet/></BaseLayout>
                 ),
-                children: [
-                    {
-                        path: '/',
-                        element: <div>/</div>
-                    },
-                    {
-                        path: '/1',
-                        element: <div>1</div>
-                    },
-                    {
-                        path: '/2',
-                        element: <div>2</div>
-                    },
-                    {
-                        path: '/data-constructor',
-                        element: <DataConstructor/>
-                    },
-                ]
+                children: routes
             },
         ],
         {
